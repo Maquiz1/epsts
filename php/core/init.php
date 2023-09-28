@@ -5,8 +5,8 @@ $GLOBALS['config'] = array(
   'mysql' => array(
       'host' => 'localhost',
       'username' => 'root',
-      'password' => 'Data@2020',
-      'db' => 'nimregenin'
+      'password' => '@Subaru@2022',
+      'db' => 'epsts'
   	),
   'remember' =>array(
       'cookie_name' => 'hash',

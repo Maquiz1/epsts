@@ -190,14 +190,14 @@ class User
         return $this->_override->getData('schedule');
     }
 
-    function visit2($client_id, $seq, $study_id)
+    function visit2($client_id, $seq, $study_id, $site_id)
     {
         // $this->deleteRecord('visit', 'client_id', $client_id);
         if ($this->_override->getCount('visit', 'client_id', $client_id) == 1) {
             $sq = $seq;
             foreach ($this->_override->getData('schedule') as $schedule) {
-                if ($sq < 7) {
-                    $sq += 7;
+                if ($sq < 1) {
+                    $sq += 1;
                     $visit_name = 'Day ' . $sq;
                     // $nxt_visit = date('Y-m-d', strtotime($nxt_visit . ' + 1 days'));
                     $last_visit_date = $this->_override->getlastRow('visit', 'client_id', $client_id, 'id')[0]['visit_date'];
@@ -211,55 +211,12 @@ class User
                         'client_id' => $client_id,
                         'seq_no' => $sq,
                         'status' => 0,
+                        'site_id' => $site_id,
+
                     ));
-                } else if ($sq >= 7 && $sq < 14) {
-                    $sq += 7;
-                    $visit_name = 'Day ' . $sq;
-                    $last_visit_date = $this->_override->getlastRow('visit', 'client_id', $client_id, 'id')[0]['expected_date'];
-                    $nxt_visit = date('Y-m-d', strtotime($last_visit_date . ' + ' . $schedule['days'] . ' days'));
-                    $this->createRecord('visit', array(
-                        'visit_name' => $visit_name,
-                        'visit_code' => $schedule['visit'],
-                        'study_id' => $study_id,
-                        'expected_date' => $nxt_visit,
-                        'visit_window' => $schedule['window'],
-                        'client_id' => $client_id,
-                        'seq_no' => $sq,
-                        'status' => 0,
-                    ));
-                } else if ($sq >= 14 && $sq < 30) {
-                    $sq += 16;
-                    $visit_name = 'Day ' . $sq;
-                    $last_visit_date = $this->_override->getlastRow('visit', 'client_id', $client_id, 'id')[0]['expected_date'];
-                    $nxt_visit = date('Y-m-d', strtotime($last_visit_date . ' + ' . $schedule['days'] . ' days'));
-                    $this->createRecord('visit', array(
-                        'visit_name' => $visit_name,
-                        'visit_code' => $schedule['visit'],
-                        'study_id' => $study_id,
-                        'expected_date' => $nxt_visit,
-                        'visit_window' => $schedule['window'],
-                        'client_id' => $client_id,
-                        'seq_no' => $sq,
-                        'status' => 0,
-                    ));
-                } else if ($sq >= 30 && $sq < 120) {
-                    $sq += 30;
-                    $visit_name = 'Day ' . $sq;
-                    $last_visit_date = $this->_override->getlastRow('visit', 'client_id', $client_id, 'id')[0]['expected_date'];
-                    $nxt_visit = date('Y-m-d', strtotime($last_visit_date . ' + ' . $schedule['days'] . ' days'));
-                    $this->createRecord('visit', array(
-                        'visit_name' => $visit_name,
-                        'visit_code' => $schedule['visit'],
-                        'study_id' => $study_id,
-                        'expected_date' => $nxt_visit,
-                        'visit_window' => $schedule['window'],
-                        'client_id' => $client_id,
-                        'seq_no' => $sq,
-                        'status' => 0,
-                    ));
-                } else if ($sq >= 120 && $sq < 121)  {
+                } else if ($sq == 1) {
                     $sq += 1;
-                    $visit_name = 'STUDY TERMINATION';
+                    $visit_name = 'Day ' . $sq;
                     $last_visit_date = $this->_override->getlastRow('visit', 'client_id', $client_id, 'id')[0]['expected_date'];
                     $nxt_visit = date('Y-m-d', strtotime($last_visit_date . ' + ' . $schedule['days'] . ' days'));
                     $this->createRecord('visit', array(
@@ -271,10 +228,12 @@ class User
                         'client_id' => $client_id,
                         'seq_no' => $sq,
                         'status' => 0,
+                        'site_id' => $site_id,
+
                     ));
-                } else if ($sq >= 121){
-                    $visit_name = 'ADVERSE EVENT';
-                    $sq = 120;
+                } else if ($sq == 2) {
+                    $sq += 1;
+                    $visit_name = 'Day ' . $sq;
                     $last_visit_date = $this->_override->getlastRow('visit', 'client_id', $client_id, 'id')[0]['expected_date'];
                     $nxt_visit = date('Y-m-d', strtotime($last_visit_date . ' + ' . $schedule['days'] . ' days'));
                     $this->createRecord('visit', array(
@@ -286,12 +245,465 @@ class User
                         'client_id' => $client_id,
                         'seq_no' => $sq,
                         'status' => 0,
+                        'site_id' => $site_id,
+
                     ));
-                }
+                } else if ($sq == 3) {
+                    $sq += 1;
+                    $visit_name = 'Day ' . $sq;
+                    $last_visit_date = $this->_override->getlastRow('visit', 'client_id', $client_id, 'id')[0]['expected_date'];
+                    $nxt_visit = date('Y-m-d', strtotime($last_visit_date . ' + ' . $schedule['days'] . ' days'));
+                    $this->createRecord('visit', array(
+                        'visit_name' => $visit_name,
+                        'visit_code' => $schedule['visit'],
+                        'study_id' => $study_id,
+                        'expected_date' => $nxt_visit,
+                        'visit_window' => $schedule['window'],
+                        'client_id' => $client_id,
+                        'seq_no' => $sq,
+                        'status' => 0,
+                        'site_id' => $site_id,
+
+                    ));
+                } else if ($sq == 4) {
+                    $sq += 1;
+                    $visit_name = 'Day ' . $sq;
+                    $last_visit_date = $this->_override->getlastRow('visit', 'client_id', $client_id, 'id')[0]['expected_date'];
+                    $nxt_visit = date('Y-m-d', strtotime($last_visit_date . ' + ' . $schedule['days'] . ' days'));
+                    $this->createRecord('visit', array(
+                        'visit_name' => $visit_name,
+                        'visit_code' => $schedule['visit'],
+                        'study_id' => $study_id,
+                        'expected_date' => $nxt_visit,
+                        'visit_window' => $schedule['window'],
+                        'client_id' => $client_id,
+                        'seq_no' => $sq,
+                        'status' => 0,
+                        'site_id' => $site_id,
+
+                    ));
+                } else if ($sq == 5) {
+                    $sq += 1;
+                    $visit_name = 'Day ' . $sq;
+                    $last_visit_date = $this->_override->getlastRow('visit', 'client_id', $client_id, 'id')[0]['expected_date'];
+                    $nxt_visit = date('Y-m-d', strtotime($last_visit_date . ' + ' . $schedule['days'] . ' days'));
+                    $this->createRecord('visit', array(
+                        'visit_name' => $visit_name,
+                        'visit_code' => $schedule['visit'],
+                        'study_id' => $study_id,
+                        'expected_date' => $nxt_visit,
+                        'visit_window' => $schedule['window'],
+                        'client_id' => $client_id,
+                        'seq_no' => $sq,
+                        'status' => 0,
+                        'site_id' => $site_id,
+
+                    ));
+                } else if ($sq == 6) {
+                    $sq += 1;
+                    $visit_name = 'Day ' . $sq;
+                    $last_visit_date = $this->_override->getlastRow('visit', 'client_id', $client_id, 'id')[0]['expected_date'];
+                    $nxt_visit = date('Y-m-d', strtotime($last_visit_date . ' + ' . $schedule['days'] . ' days'));
+                    $this->createRecord('visit', array(
+                        'visit_name' => $visit_name,
+                        'visit_code' => $schedule['visit'],
+                        'study_id' => $study_id,
+                        'expected_date' => $nxt_visit,
+                        'visit_window' => $schedule['window'],
+                        'client_id' => $client_id,
+                        'seq_no' => $sq,
+                        'status' => 0,
+                        'site_id' => $site_id,
+
+                    ));
+                } else if ($sq == 7) {
+                    $sq += 1;
+                    $visit_name = 'Day ' . $sq;
+                    $last_visit_date = $this->_override->getlastRow('visit', 'client_id', $client_id, 'id')[0]['expected_date'];
+                    $nxt_visit = date('Y-m-d', strtotime($last_visit_date . ' + ' . $schedule['days'] . ' days'));
+                    $this->createRecord('visit', array(
+                        'visit_name' => $visit_name,
+                        'visit_code' => $schedule['visit'],
+                        'study_id' => $study_id,
+                        'expected_date' => $nxt_visit,
+                        'visit_window' => $schedule['window'],
+                        'client_id' => $client_id,
+                        'seq_no' => $sq,
+                        'status' => 0,
+                        'site_id' => $site_id,
+
+                    ));
+                } else if ($sq == 8) {
+                    $sq += 20;
+                    $visit_name = 'Day ' . $sq;
+                    $last_visit_date = $this->_override->getlastRow('visit', 'client_id', $client_id, 'id')[0]['expected_date'];
+                    $nxt_visit = date('Y-m-d', strtotime($last_visit_date . ' + ' . $schedule['days'] . ' days'));
+                    $this->createRecord('visit', array(
+                        'visit_name' => $visit_name,
+                        'visit_code' => $schedule['visit'],
+                        'study_id' => $study_id,
+                        'expected_date' => $nxt_visit,
+                        'visit_window' => $schedule['window'],
+                        'client_id' => $client_id,
+                        'seq_no' => $sq,
+                        'status' => 0,
+                        'site_id' => $site_id,
+
+                    ));
+                } else if ($sq == 28) {
+                    $sq += 2;
+                    $visit_name = 'Day ' . $sq;
+                    $last_visit_date = $this->_override->getlastRow('visit', 'client_id', $client_id, 'id')[0]['expected_date'];
+                    $nxt_visit = date('Y-m-d', strtotime($last_visit_date . ' + ' . $schedule['days'] . ' days'));
+                    $this->createRecord('visit', array(
+                        'visit_name' => $visit_name,
+                        'visit_code' => $schedule['visit'],
+                        'study_id' => $study_id,
+                        'expected_date' => $nxt_visit,
+                        'visit_window' => $schedule['window'],
+                        'client_id' => $client_id,
+                        'seq_no' => $sq,
+                        'status' => 0,
+                        'site_id' => $site_id,
+
+                    ));
+                } else if ($sq == 30) {
+                    $sq += 1;
+                    $visit_name = 'Day ' . $sq;
+                    $last_visit_date = $this->_override->getlastRow('visit', 'client_id', $client_id, 'id')[0]['expected_date'];
+                    $nxt_visit = date('Y-m-d', strtotime($last_visit_date . ' + ' . $schedule['days'] . ' days'));
+                    $this->createRecord('visit', array(
+                        'visit_name' => $visit_name,
+                        'visit_code' => $schedule['visit'],
+                        'study_id' => $study_id,
+                        'expected_date' => $nxt_visit,
+                        'visit_window' => $schedule['window'],
+                        'client_id' => $client_id,
+                        'seq_no' => $sq,
+                        'status' => 0,
+                        'site_id' => $site_id,
+
+                    ));
+                } else if ($sq == 31) {
+                    $sq += 1;
+                    $visit_name = 'Day ' . $sq;
+                    $last_visit_date = $this->_override->getlastRow('visit', 'client_id', $client_id, 'id')[0]['expected_date'];
+                    $nxt_visit = date('Y-m-d', strtotime($last_visit_date . ' + ' . $schedule['days'] . ' days'));
+                    $this->createRecord('visit', array(
+                        'visit_name' => $visit_name,
+                        'visit_code' => $schedule['visit'],
+                        'study_id' => $study_id,
+                        'expected_date' => $nxt_visit,
+                        'visit_window' => $schedule['window'],
+                        'client_id' => $client_id,
+                        'seq_no' => $sq,
+                        'status' => 0,
+                        'site_id' => $site_id,
+
+                    ));
+                } else if ($sq == 32) {
+                    $sq += 1;
+                    $visit_name = 'Day ' . $sq;
+                    $last_visit_date = $this->_override->getlastRow('visit', 'client_id', $client_id, 'id')[0]['expected_date'];
+                    $nxt_visit = date('Y-m-d', strtotime($last_visit_date . ' + ' . $schedule['days'] . ' days'));
+                    $this->createRecord('visit', array(
+                        'visit_name' => $visit_name,
+                        'visit_code' => $schedule['visit'],
+                        'study_id' => $study_id,
+                        'expected_date' => $nxt_visit,
+                        'visit_window' => $schedule['window'],
+                        'client_id' => $client_id,
+                        'seq_no' => $sq,
+                        'status' => 0,
+                        'site_id' => $site_id,
+
+                    ));
+                } else if ($sq == 33) {
+                    $sq += 1;
+                    $visit_name = 'Day ' . $sq;
+                    $last_visit_date = $this->_override->getlastRow('visit', 'client_id', $client_id, 'id')[0]['expected_date'];
+                    $nxt_visit = date('Y-m-d', strtotime($last_visit_date . ' + ' . $schedule['days'] . ' days'));
+                    $this->createRecord('visit', array(
+                        'visit_name' => $visit_name,
+                        'visit_code' => $schedule['visit'],
+                        'study_id' => $study_id,
+                        'expected_date' => $nxt_visit,
+                        'visit_window' => $schedule['window'],
+                        'client_id' => $client_id,
+                        'seq_no' => $sq,
+                        'status' => 0,
+                        'site_id' => $site_id,
+
+                    ));
+                } else if ($sq == 34) {
+                    $sq += 1;
+                    $visit_name = 'Day ' . $sq;
+                    $last_visit_date = $this->_override->getlastRow('visit', 'client_id', $client_id, 'id')[0]['expected_date'];
+                    $nxt_visit = date('Y-m-d', strtotime($last_visit_date . ' + ' . $schedule['days'] . ' days'));
+                    $this->createRecord('visit', array(
+                        'visit_name' => $visit_name,
+                        'visit_code' => $schedule['visit'],
+                        'study_id' => $study_id,
+                        'expected_date' => $nxt_visit,
+                        'visit_window' => $schedule['window'],
+                        'client_id' => $client_id,
+                        'seq_no' => $sq,
+                        'status' => 0,
+                        'site_id' => $site_id,
+
+                    ));
+                } else if ($sq == 35) {
+                    $sq += 1;
+                    $visit_name = 'Day ' . $sq;
+                    $last_visit_date = $this->_override->getlastRow('visit', 'client_id', $client_id, 'id')[0]['expected_date'];
+                    $nxt_visit = date('Y-m-d', strtotime($last_visit_date . ' + ' . $schedule['days'] . ' days'));
+                    $this->createRecord('visit', array(
+                        'visit_name' => $visit_name,
+                        'visit_code' => $schedule['visit'],
+                        'study_id' => $study_id,
+                        'expected_date' => $nxt_visit,
+                        'visit_window' => $schedule['window'],
+                        'client_id' => $client_id,
+                        'seq_no' => $sq,
+                        'status' => 0,
+                        'site_id' => $site_id,
+
+                    ));
+                } else if ($sq == 36) {
+                    $sq += 21;
+                    $visit_name = 'Day ' . $sq;
+                    $last_visit_date = $this->_override->getlastRow('visit', 'client_id', $client_id, 'id')[0]['expected_date'];
+                    $nxt_visit = date('Y-m-d', strtotime($last_visit_date . ' + ' . $schedule['days'] . ' days'));
+                    $this->createRecord('visit', array(
+                        'visit_name' => $visit_name,
+                        'visit_code' => $schedule['visit'],
+                        'study_id' => $study_id,
+                        'expected_date' => $nxt_visit,
+                        'visit_window' => $schedule['window'],
+                        'client_id' => $client_id,
+                        'seq_no' => $sq,
+                        'status' => 0,
+                        'site_id' => $site_id,
+
+                    ));
+                }else if ($sq == 57)  {
+                    $sq += 158;
+                    $visit_name = 'LAST VISIT';
+                    $last_visit_date = $this->_override->getlastRow('visit', 'client_id', $client_id, 'id')[0]['expected_date'];
+                    $nxt_visit = date('Y-m-d', strtotime($last_visit_date . ' + ' . $schedule['days'] . ' days'));
+                    $this->createRecord('visit', array(
+                        'visit_name' => $visit_name,
+                        'visit_code' => $schedule['visit'],
+                        'study_id' => $study_id,
+                        'expected_date' => $nxt_visit,
+                        'visit_window' => $schedule['window'],
+                        'client_id' => $client_id,
+                        'seq_no' => $sq,
+                        'status' => 0,
+                        'site_id' => $site_id,
+
+                    ));
+                } 
             }
         }
 
         return $this->_override->getData('schedule');
+    }
+
+    // function visit2($client_id, $seq, $study_id, $site_id)
+
+    function visit3($study_name, $pid, $date, $v_point, $status, $study_group)
+    {
+        // $this->updateRecord('clients', array('pt_group' => $study_group), $pid);
+        $x = $v_point;
+        $arr = array();
+        $y = 0;
+        $vg = 'V1';
+        $nxt_visit = $date;
+        $vty = 'Clinic';
+        $vc = 'V1';
+        $lw = 0;
+        $hw = 0;
+        if ($x == 1) {
+            $nxt_visit = date('Y-m-d', strtotime($nxt_visit));
+            $pre_vac1 = date('Y-m-d', strtotime($nxt_visit . ' - 1 days'));
+            $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => 'Pre-Vac1', 'visit_group' => $vg, 'visit_date' => $pre_vac1, 'visit_type' => $vty, 'schedule' => 'Scheduled', 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
+            $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => $vc, 'visit_group' => $vg, 'visit_date' => $nxt_visit, 'visit_type' => $vty, 'schedule' => 'Scheduled', 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
+        }
+        while ($x < 215) {
+            if ($x <= 8) {
+                $nxt_visit = date('Y-m-d', strtotime($nxt_visit . ' + 1 days'));
+                $y++;
+                $vc = 'Day' . $y;
+                if ($y == 2 || $y == 7) {
+                    $vty = 'Clinic';
+                    $lw = 1;
+                    $hw = 1;
+                } else {
+                    $vty = 'Home';
+                    $lw = 0;
+                    $hw = 0;
+                }
+                $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => $vc, 'visit_group' => $vg, 'visit_date' => $nxt_visit, 'visit_type' => $vty, 'schedule' => 'Scheduled', 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
+                $x++;
+            } elseif ($x == 8) {
+                $nxt_visit = date('Y-m-d', strtotime($nxt_visit . ' + 7 days'));
+                $x += 6;
+                $y = 14;
+                $vc = 'V1 + ' . $y;
+                $vty = 'Clinic';
+                $lw = 1;
+                $hw = 3;
+                $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => $vc, 'visit_group' => $vg, 'visit_date' => $nxt_visit, 'visit_type' => $vty, 'schedule' => 'Scheduled', 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
+                $y = 14;
+                $vg = 'V2';
+            } elseif ($x == 14) {
+                $y = 14;
+                $vg = 'V2';
+                if ($status == 'c') {
+                    $nxt_visit = date('Y-m-d', strtotime($nxt_visit . ' + 14 days'));
+                } elseif ($status == 'u') {
+                    $status = 'c';
+                    $nxt_visit = date('Y-m-d', strtotime($date));
+                }
+                $x += 14;
+                $vty = 'Clinic';
+                if ($y == 14) {
+                    $vc = 'V2';
+                    $lw = 1;
+                    $hw = 3;
+                } else {
+                    $vc = 'V2 + ' . $y;
+                    $lw = 0;
+                    $hw = 0;
+                }
+                $pre_vac2 = date('Y-m-d', strtotime($nxt_visit . ' - 1 days'));
+                $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => 'Pre-Vac2', 'visit_group' => $vg, 'visit_date' => $pre_vac2, 'visit_type' => $vty, 'schedule' => 'Scheduled', 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
+                $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => $vc, 'visit_group' => $vg, 'visit_date' => $nxt_visit, 'schedule' => 'Scheduled', 'visit_type' => $vty, 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
+                $y = 1;
+            } elseif ($x >= 28 && $x < 35) {
+                $nxt_visit = date('Y-m-d', strtotime($nxt_visit . ' + 1 days'));
+                $x++;
+                if ($x == 28) {
+                    $vc = 'V2';
+                    $y = 0;
+                    $vty = 'Clinic';
+                    $lw = 7;
+                    $hw = 14;
+                } else {
+                    $vc = 'V2 + ' . $y;
+                    $vty = 'Home';
+                    $lw = 0;
+                    $hw = 0;
+                }
+                if ($y == 2 || $y == 7) {
+                    $vty = 'Clinic';
+                }
+                $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => $vc, 'visit_group' => $vg, 'visit_date' => $nxt_visit, 'visit_type' => $vty, 'schedule' => 'Scheduled', 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
+                $y++;
+            } elseif ($x == 35) {
+                $y = 14;
+                $nxt_visit = date('Y-m-d', strtotime($nxt_visit . ' + 7 days'));
+                $x += 7;
+                $vc = 'V2 + ' . $y;
+                $vty = 'Clinic';
+                $lw = 0;
+                $hw = 0;
+                $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => $vc, 'visit_group' => $vg, 'visit_date' => $nxt_visit, 'visit_type' => $vty, 'schedule' => 'Scheduled', 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
+            } elseif ($x == 42) {
+                $y = 1;
+                $vg = 'V3';
+                if ($status == 'c') {
+                    $nxt_visit = date('Y-m-d', strtotime($nxt_visit . ' + 14 days'));
+                } elseif ($status == 'u') {
+                    $status = 'c';
+                    $nxt_visit = date('Y-m-d', strtotime($date));
+                }
+                $x += 14;
+                $vc = 'V3';
+                $vty = 'Clinic';
+                $lw = 7;
+                $hw = 14;
+                $pre_vac3 = date('Y-m-d', strtotime($nxt_visit . ' - 1 days'));
+                $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => 'Pre-Vac3', 'visit_group' => $vg, 'visit_date' => $pre_vac3, 'visit_type' => $vty, 'schedule' => 'Scheduled', 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
+                $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => $vc, 'visit_group' => $vg, 'visit_date' => $nxt_visit, 'visit_type' => $vty, 'schedule' => 'Scheduled', 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
+            } elseif ($x >= 56 && $x < 63) {
+                $nxt_visit = date('Y-m-d', strtotime($nxt_visit . ' + 1 days'));
+                $x++;
+                if ($y == 56) {
+                    $vc = 'V3';
+                    $y = 0;
+                } else {
+                    $vc = 'V3 + ' . $y;
+                }
+                if ($y == 2 || $y == 7) {
+                    $vty = 'Clinic';
+                } else {
+                    $vty = 'Home';
+                }
+                $lw = 0;
+                $hw = 0;
+                $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => $vc, 'visit_group' => $vg, 'visit_date' => $nxt_visit, 'visit_type' => $vty, 'schedule' => 'Scheduled', 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
+                $y++;
+            } elseif ($x == 63) {
+                $y = 14;
+                $nxt_visit = date('Y-m-d', strtotime($nxt_visit . ' + 7 days'));
+                $x += 7;
+                $vc = 'V3 + ' . $y;
+                $vty = 'Clinic';
+                $lw = 1;
+                $hw = 3;
+                $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => $vc, 'visit_group' => $vg, 'visit_date' => $nxt_visit, 'visit_type' => $vty, 'schedule' => 'Scheduled', 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
+                $y++;
+            } elseif ($x == 70) {
+                $y = 28;
+                $nxt_visit = date('Y-m-d', strtotime($nxt_visit . ' + 14 days'));
+                $x += 14;
+                $vc = 'V3 + ' . $y;
+                $vty = 'Clinic';
+                $lw = 7;
+                $hw = 2;
+                $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => $vc, 'visit_group' => $vg, 'visit_date' => $nxt_visit, 'visit_type' => $vty, 'schedule' => 'Scheduled', 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
+            } elseif ($x == 84) {
+                $y = 84;
+                $nxt_visit = date('Y-m-d', strtotime($nxt_visit . ' + 56 days'));
+                $x += 56;
+                $vc = 'V3 + ' . $y;
+                $vty = 'Clinic';
+                $lw = 7;
+                $hw = 7;
+                $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => $vc, 'visit_group' => $vg, 'visit_date' => $nxt_visit, 'visit_type' => $vty, 'schedule' => 'Scheduled', 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
+            } elseif ($x == 140) {
+                $y = 112;
+                $nxt_visit = date('Y-m-d', strtotime($nxt_visit . ' + 28 days'));
+                $x += 28;
+                $vc = 'V3 + ' . $y;
+                $vty = 'Clinic';
+                $lw = 28;
+                $hw = 28;
+                $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => $vc, 'visit_group' => $vg, 'visit_date' => $nxt_visit, 'visit_type' => $vty, 'schedule' => 'Scheduled', 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
+            } elseif ($x == 168) {
+                $y = 309;
+                $nxt_visit = date('Y-m-d', strtotime($nxt_visit . ' + 197 days'));
+                $x += 197;
+                $vc = 'V3 + ' . $y;
+                $vty = 'Clinic';
+                $lw = 28;
+                $hw = 28;
+                $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => $vc, 'visit_group' => $vg, 'visit_date' => $nxt_visit, 'visit_type' => $vty, 'schedule' => 'Scheduled', 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
+            } elseif ($x == 365) {
+                $y = 674;
+                $nxt_visit = date('Y-m-d', strtotime($nxt_visit . ' + 365 days'));
+                $x += 365;
+                $vc = 'V3 + ' . $y;
+                $vty = 'Clinic';
+                $lw = 28;
+                $hw = 28;
+                $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => $vc, 'visit_group' => $vg, 'visit_date' => $nxt_visit, 'visit_type' => $vty, 'schedule' => 'Scheduled', 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
+            } elseif ($x == 730) {
+                break;
+            }
+        }
     }
 
     function getBrowser()

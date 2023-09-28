@@ -78,7 +78,7 @@ if(!$user->isLoggedIn()) {
 <html lang="en">
 
 <head>
-    <title> Login - NIMREGENIN </title>
+    <title> Login - Participants Tracking Visits </title>
     <?php include 'head.php'?>
 </head>
 <body>

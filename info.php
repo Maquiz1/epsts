@@ -286,7 +286,6 @@ if ($user->isLoggedIn()) {
                             'comments' => Input::get('comments'),
                             'initials' => Input::get('initials'),
                             'status' => 1,
-                            'created_on' => date('Y-m-d'),
                         ), Input::get('id'));
 
                         $successMessage = 'Client Updated Successful';
@@ -574,28 +573,24 @@ if ($user->isLoggedIn()) {
                 $eligibility = 0;
                 $eligible = 0;
                 if (
-                    Input::get('age_18') == 1 && Input::get('biopsy') == 1 && Input::get('consented') == 1
+                    Input::get('consented') == 1
                 ) {
-                    if (Input::get('gender') == 'male' && (Input::get('breast_cancer') == 1 || Input::get('brain_cancer') == 1 || Input::get('prostate_cancer') == 1)) {
-                        $eligibility = 1;
-                    } elseif (Input::get('gender') == 'female' && (Input::get('breast_cancer') == 1 || Input::get('brain_cancer') == 1 || Input::get('cervical_cancer') == 1)) {
-                        $eligibility = 1;
-                    }
+                    $eligibility = 1;
                 }
                 try {
                     if ($override->get('screening', 'client_id', Input::get('id'))) {
                         $user->updateRecord('screening', array(
                             'screening_date' => Input::get('screening_date'),
-                            'age_18' => Input::get('age_18'),
-                            'biopsy' => Input::get('biopsy'),
-                            'patient_category' => Input::get('patient_category'),
-                            'breast_cancer' => Input::get('breast_cancer'),
-                            'brain_cancer' => Input::get('brain_cancer'),
-                            'cervical_cancer' => Input::get('cervical_cancer'),
-                            'prostate_cancer' => Input::get('prostate_cancer'),
+                            // 'age_18' => Input::get('age_18'),
+                            // 'biopsy' => Input::get('biopsy'),
+                            // 'patient_category' => Input::get('patient_category'),
+                            // 'breast_cancer' => Input::get('breast_cancer'),
+                            // 'brain_cancer' => Input::get('brain_cancer'),
+                            // 'cervical_cancer' => Input::get('cervical_cancer'),
+                            // 'prostate_cancer' => Input::get('prostate_cancer'),
                             'eligibility' => $eligibility,
                             'consented' => Input::get('consented'),
-                            'consented_nimregenin' => Input::get('consented_nimregenin'),
+                            // 'consented_nimregenin' => Input::get('consented_nimregenin'),
                             'reasons' => Input::get('reasons'),
                             'created_on' => date('Y-m-d'),
                             'staff_id' => $user->data()->id,
@@ -606,19 +601,19 @@ if ($user->isLoggedIn()) {
                     } else {
                         $user->createRecord('screening', array(
                             'screening_date' => Input::get('screening_date'),
-                            'age_18' => Input::get('age_18'),
-                            'biopsy' => Input::get('biopsy'),
-                            'patient_category' => Input::get('patient_category'),
-                            'study_id' => '',
-                            'breast_cancer' => Input::get('breast_cancer'),
-                            'brain_cancer' => Input::get('brain_cancer'),
-                            'cervical_cancer' => Input::get('cervical_cancer'),
-                            'prostate_cancer' => Input::get('prostate_cancer'),
+                            // 'age_18' => Input::get('age_18'),
+                            // 'biopsy' => Input::get('biopsy'),
+                            // 'patient_category' => Input::get('patient_category'),
+                            // 'study_id' => '',
+                            // 'breast_cancer' => Input::get('breast_cancer'),
+                            // 'brain_cancer' => Input::get('brain_cancer'),
+                            // 'cervical_cancer' => Input::get('cervical_cancer'),
+                            // 'prostate_cancer' => Input::get('prostate_cancer'),
                             'eligibility' => $eligibility,
                             'consented' => Input::get('consented'),
-                            'consented_nimregenin' => Input::get('consented_nimregenin'),
+                            // 'consented_nimregenin' => Input::get('consented_nimregenin'),
                             'reasons' => Input::get('reasons'),
-                            'created_on' => date('Y-m-d'),
+                            // 'created_on' => date('Y-m-d'),
                             'staff_id' => $user->data()->id,
                             'site_id' => $user->data()->site_id,
                             'status' => 1,
@@ -640,11 +635,11 @@ if ($user->isLoggedIn()) {
                     }
                     $user->updateRecord('clients', array(
                         'consented' => Input::get('consented'),
-                        'consented_nimregenin' => Input::get('consented_nimregenin'),
+                        // 'consented_nimregenin' => Input::get('consented_nimregenin'),
                         'screened' => $screening,
                         'eligible' => $eligible,
                         'eligibility1' => $eligibility,
-                        'patient_category' => Input::get('patient_category'),
+                        // 'patient_category' => Input::get('patient_category'),
                     ), Input::get('id'));
                     $successMessage = 'Inclusion Successful Added';
                     if ($eligible == 1) {
@@ -664,28 +659,28 @@ if ($user->isLoggedIn()) {
             if ($validate->passed()) {
                 $screening = 0;
                 $eligibility = 0;
-                $eligible = 0;
+                $eligible = 1;
 
                 $gender = $override->getNews('clients', 'id', Input::get('id'), 'status', 1)[0]['gender'];
 
-                if (Input::get('cdk') == 2 && Input::get('liver_disease') == 2) {
-                    if ($gender == 'male') {
-                        $eligibility = 1;
-                    } elseif ($gender == 'female' && (Input::get('pregnant') == 2 && Input::get('breast_feeding') == 2)) {
-                        $eligibility = 1;
-                    }
-                }
+                // if (Input::get('cdk') == 2 && Input::get('liver_disease') == 2) {
+                //     if ($gender == 'male') {
+                //         $eligibility = 1;
+                //     } elseif ($gender == 'female' && (Input::get('pregnant') == 2 && Input::get('breast_feeding') == 2)) {
+                //         $eligibility = 1;
+                //     }
+                // }
                 try {
                     if ($override->get('lab', 'client_id', Input::get('id'))) {
                         $user->updateRecord('lab', array(
                             'screening_date' => Input::get('screening_date'),
                             // 'study_id' => '',
-                            'pregnant' => Input::get('pregnant'),
-                            'breast_feeding' => Input::get('breast_feeding'),
-                            'cdk' => Input::get('cdk'),
-                            'liver_disease' => Input::get('liver_disease'),
+                            // 'pregnant' => Input::get('pregnant'),
+                            // 'breast_feeding' => Input::get('breast_feeding'),
+                            // 'cdk' => Input::get('cdk'),
+                            // 'liver_disease' => Input::get('liver_disease'),
                             'eligibility' => $eligibility,
-                            'created_on' => date('Y-m-d'),
+                            // 'created_on' => date('Y-m-d'),
                             'staff_id' => $user->data()->id,
                             'site_id' => $user->data()->site_id,
                             'status' => 1,
@@ -694,11 +689,11 @@ if ($user->isLoggedIn()) {
                     } else {
                         $user->createRecord('lab', array(
                             'screening_date' => Input::get('screening_date'),
-                            'study_id' => '',
-                            'pregnant' => Input::get('pregnant'),
-                            'breast_feeding' => Input::get('breast_feeding'),
-                            'cdk' => Input::get('cdk'),
-                            'liver_disease' => Input::get('liver_disease'),
+                            // 'study_id' => '',
+                            // 'pregnant' => Input::get('pregnant'),
+                            // 'breast_feeding' => Input::get('breast_feeding'),
+                            // 'cdk' => Input::get('cdk'),
+                            // 'liver_disease' => Input::get('liver_disease'),
                             'eligibility' => $eligibility,
                             'created_on' => date('Y-m-d'),
                             'staff_id' => $user->data()->id,
@@ -755,7 +750,7 @@ if ($user->isLoggedIn()) {
                     $user->createRecord('visit', array(
                         'visit_name' => 'Day 0',
                         'visit_code' => 'D0',
-                        'study_id' => $study_id,
+                        'study_id' => Input::get('study_id'),
                         'expected_date' => '',
                         'visit_date' => Input::get('visit_date'),
                         'visit_window' => 2,
@@ -771,11 +766,11 @@ if ($user->isLoggedIn()) {
                     if ($override->getCount('visit', 'client_id', Input::get('id')) == 1) {
                         try {
                             if (!$client_study['study_id']) {
-                                $user->visit2(Input::get('id'), 0, $std_id['study_id']);
+                                $user->visit2(Input::get('id'), 0, $std_id['study_id'], $site_id);
                                 $user->updateRecord('study_id', array('status' => 1, 'client_id' => Input::get('id')), $std_id['id']);
                                 $user->updateRecord('clients', array('study_id' => $std_id['study_id'], 'enrolled' => 1), Input::get('id'));
                             } else {
-                                $user->visit2(Input::get('id'), 0, $client_study['study_id']);
+                                $user->visit2(Input::get('id'), 0, $client_study['study_id'], $site_id);
                             }
                         } catch (Exception $e) {
                             die($e->getMessage());
@@ -848,9 +843,9 @@ if ($user->isLoggedIn()) {
                         if ($override->getCount('visit', 'client_id', Input::get('id')) == 1) {
                             try {
                                 if (!$client_study['study_id']) {
-                                    $user->visit2(Input::get('id'), 0, $std_id['study_id']);
+                                    $user->visit2(Input::get('id'), 0, $std_id['study_id'], $site_id);
                                 } else {
-                                    $user->visit2(Input::get('id'), 0, $client_study['study_id']);
+                                    $user->visit2(Input::get('id'), 0, $client_study['study_id'], $site_id);
                                 }
                             } catch (Exception $e) {
                                 die($e->getMessage());
@@ -876,579 +871,6 @@ if ($user->isLoggedIn()) {
                 $user->updateRecord('clients', array('enrolled' => 1), Input::get('id'));
                 $successMessage = 'Enrollment  Updated Successful';
                 Redirect::to('info.php?id=3&status=2');
-            } else {
-                $pageError = $validate->errors();
-            }
-        } elseif (Input::get('update_crf1')) {
-            $validate = $validate->check($_POST, array(
-                //     'diagnosis_date' => array(
-                //         'required' => true,
-                //     ),
-            ));
-            if ($validate->passed()) {
-                try {
-                    $user->updateRecord('crf1', array(
-                        'vid' => $_GET["vid"],
-                        'vcode' => $_GET["vcode"],
-                        'study_id' => $_GET['sid'],
-                        'diagnosis_date' => Input::get('diagnosis_date'),
-                        'diabetic' => Input::get('diabetic'),
-                        'diabetic_medicatn' => Input::get('diabetic_medicatn'),
-                        'diabetic_medicatn_name' => Input::get('diabetic_medicatn_name'),
-                        'hypertension' => Input::get('hypertension'),
-                        'hypertension_medicatn' => Input::get('hypertension_medicatn'),
-                        'hypertension_medicatn_name' => Input::get('hypertension_medicatn_name'),
-                        'heart' => Input::get('heart'),
-                        'heart_medicatn' => Input::get('heart_medicatn'),
-                        'heart_medicatn_name' => Input::get('heart_medicatn_name'),
-                        'asthma' => Input::get('asthma'),
-                        'asthma_medicatn' => Input::get('asthma_medicatn'),
-                        'asthma_medicatn_name' => Input::get('asthma_medicatn_name'),
-                        'hiv_aids' => Input::get('hiv_aids'),
-                        'hiv_aids_medicatn' => Input::get('hiv_aids_medicatn'),
-                        'hiv_aids_medicatn_name' => Input::get('hiv_aids_medicatn_name'),
-                        'other_medical' => Input::get('other_medical'),
-                        'nimregenin_herbal' => Input::get('nimregenin_herbal'),
-                        'other_herbal' => Input::get('other_herbal'),
-                        'radiotherapy_performed' => Input::get('radiotherapy_performed'),
-                        'chemotherapy_performed' => Input::get('chemotherapy_performed'),
-                        'surgery_performed' => Input::get('surgery_performed'),
-                        'crf1_cmpltd_date' => Input::get('crf1_cmpltd_date'),
-                        'patient_id' => $_GET['cid'],
-                        'staff_id' => $user->data()->id,
-                        'status' => 1,
-                        'created_on' => date('Y-m-d'),
-                        'site_id' => $user->data()->site_id,
-                    ), Input::get('id'));
-
-                    if (Input::get('other_medical') == 1) {
-                        for ($i = 0; $i < count(Input::get('other_specify')); $i++) {
-                            $user->updateRecord('other_medication', array(
-                                'vid' => $_GET["vid"],
-                                'vcode' => $_GET["vcode"],
-                                'study_id' => $_GET['sid'],
-                                'other_medical' => Input::get('other_medical'),
-                                'other_specify' => Input::get('other_specify')[$i],
-                                'other_medical_medicatn' => Input::get('other_medical_medicatn')[$i],
-                                'other_medicatn_name' => Input::get('other_medicatn_name')[$i],
-                                'crf1_cmpltd_date' => Input::get('crf1_cmpltd_date'),
-                                'patient_id' => $_GET['cid'],
-                                'staff_id' => $user->data()->id,
-                                'status' => 1,
-                                'created_on' => date('Y-m-d'),
-                                'site_id' => $user->data()->site_id,
-                            ), Input::get('medication_id')[$i]);
-                        }
-                    }
-
-                    if (Input::get('nimregenin_herbal') == 1) {
-                        for ($i = 0; $i < count(Input::get('nimregenin_preparation')); $i++) {
-                            $user->updateRecord('nimregenin', array(
-                                'vid' => $_GET["vid"],
-                                'vcode' => $_GET["vcode"],
-                                'study_id' => $_GET['sid'],
-                                'nimregenin_herbal' => Input::get('nimregenin_herbal'),
-                                'nimregenin_preparation' => Input::get('nimregenin_preparation')[$i],
-                                'nimregenin_start' => Input::get('nimregenin_start')[$i],
-                                'nimregenin_ongoing' => Input::get('nimregenin_ongoing')[$i],
-                                'nimregenin_end' => Input::get('nimregenin_end')[$i],
-                                'nimregenin_dose' => Input::get('nimregenin_dose')[$i],
-                                'nimregenin_frequency' => Input::get('nimregenin_frequency')[$i],
-                                'nimregenin_remarks' => Input::get('nimregenin_remarks')[$i],
-                                'crf1_cmpltd_date' => Input::get('crf1_cmpltd_date'),
-                                'patient_id' => $_GET['cid'],
-                                'staff_id' => $user->data()->id,
-                                'status' => 1,
-                                'created_on' => date('Y-m-d'),
-                                'site_id' => $user->data()->site_id,
-                            ), Input::get('nimregenin_id')[$i]);
-                        }
-                    }
-
-
-                    if (Input::get('radiotherapy_performed') == 1) {
-                        for ($i = 0; $i < count(Input::get('radiotherapy')); $i++) {
-                            $user->updateRecord('radiotherapy', array(
-                                'vid' => $_GET["vid"],
-                                'vcode' => $_GET["vcode"],
-                                'study_id' => $_GET['sid'],
-                                'other_herbal' => Input::get('other_herbal'),
-                                'radiotherapy_performed' => Input::get('radiotherapy_performed'),
-                                'radiotherapy' => Input::get('radiotherapy')[$i],
-                                'radiotherapy_start' => Input::get('radiotherapy_start')[$i],
-                                'radiotherapy_ongoing' => Input::get('radiotherapy_ongoing')[$i],
-                                'radiotherapy_end' => Input::get('radiotherapy_end')[$i],
-                                'radiotherapy_dose' => Input::get('radiotherapy_dose')[$i],
-                                'radiotherapy_frequecy' => Input::get('radiotherapy_frequecy')[$i],
-                                'radiotherapy_remarks' => Input::get('radiotherapy_remarks')[$i],
-                                'crf1_cmpltd_date' => Input::get('crf1_cmpltd_date'),
-                                'patient_id' => $_GET['cid'],
-                                'staff_id' => $user->data()->id,
-                                'status' => 1,
-                                'created_on' => date('Y-m-d'),
-                                'site_id' => $user->data()->site_id,
-                            ), Input::get('radiotherapy_id')[$i]);
-                        }
-                    }
-
-                    if (Input::get('other_herbal') == 1) {
-                        for ($i = 0; $i < count(Input::get('herbal_preparation')); $i++) {
-                            $user->updateRecord('herbal_treatment', array(
-                                'vid' => $_GET["vid"],
-                                'vcode' => $_GET["vcode"],
-                                'other_herbal' => Input::get('other_herbal'),
-                                'herbal_preparation' => Input::get('herbal_preparation')[$i],
-                                'herbal_start' => Input::get('herbal_start')[$i],
-                                'herbal_ongoing' => Input::get('herbal_ongoing')[$i],
-                                'herbal_end' => Input::get('herbal_end')[$i],
-                                'herbal_dose' => Input::get('herbal_dose')[$i],
-                                'herbal_frequency' => Input::get('herbal_frequency')[$i],
-                                'herbal_remarks' => Input::get('herbal_remarks')[$i],
-                                'crf1_cmpltd_date' => Input::get('crf1_cmpltd_date'),
-                                'patient_id' => $_GET['cid'],
-                                'staff_id' => $user->data()->id,
-                                'status' => 1,
-                                'created_on' => date('Y-m-d'),
-                                'site_id' => $user->data()->site_id,
-                            ), Input::get('herbal_id')[$i]);
-                        }
-                    }
-
-
-                    if (Input::get('chemotherapy_performed') == 1) {
-                        for ($i = 0; $i < count(Input::get('chemotherapy')); $i++) {
-                            $user->updateRecord('chemotherapy', array(
-                                'vid' => $_GET["vid"],
-                                'vcode' => $_GET["vcode"],
-                                'other_herbal' => Input::get('other_herbal'),
-                                'chemotherapy_performed' => Input::get('chemotherapy_performed'),
-                                'chemotherapy' => Input::get('chemotherapy')[$i],
-                                'chemotherapy_start' => Input::get('chemotherapy_start')[$i],
-                                'chemotherapy_ongoing' => Input::get('chemotherapy_ongoing')[$i],
-                                'chemotherapy_end' => Input::get('chemotherapy_end')[$i],
-                                'chemotherapy_dose' => Input::get('chemotherapy_dose')[$i],
-                                'chemotherapy_frequecy' => Input::get('chemotherapy_frequecy')[$i],
-                                'chemotherapy_remarks' => Input::get('chemotherapy_remarks')[$i],
-                                'crf1_cmpltd_date' => Input::get('crf1_cmpltd_date'),
-                                'patient_id' => $_GET['cid'],
-                                'staff_id' => $user->data()->id,
-                                'status' => 1,
-                                'created_on' => date('Y-m-d'),
-                                'site_id' => $user->data()->site_id,
-                            ), Input::get('chemotherapy_id')[$i]);
-                        }
-                    }
-
-                    if (Input::get('surgery_performed') == 1) {
-                        if (count(Input::get('surgery_id')) == count(Input::get('surgery'))) {
-                            for ($i = 0; $i < count(Input::get('surgery')); $i++) {
-                                $user->updateRecord('surgery', array(
-                                    'vid' => $_GET["vid"],
-                                    'vcode' => $_GET["vcode"],
-                                    'study_id' => $_GET['sid'],
-                                    'other_herbal' => Input::get('other_herbal'),
-                                    'surgery_performed' => Input::get('surgery_performed'),
-                                    'surgery' => Input::get('surgery')[$i],
-                                    'surgery_start' => Input::get('surgery_start')[$i],
-                                    'surgery_number' => Input::get('surgery_number')[$i],
-                                    'surgery_remarks' => Input::get('surgery_remarks')[$i],
-                                    'crf1_cmpltd_date' => Input::get('crf1_cmpltd_date'),
-                                    'patient_id' => $_GET['cid'],
-                                    'staff_id' => $user->data()->id,
-                                    'status' => 1,
-                                    'created_on' => date('Y-m-d'),
-                                    'site_id' => $user->data()->site_id,
-                                ), Input::get('surgery_id')[$i]);
-                            }
-                        }
-                    }
-                    // else{
-                    //     for ($i = count(Input::get('surgery')) + 1; $i < count(Input::get('surgery_id')); $i++) {
-                    //         $user->createRecord('surgery', array(
-                    //             'vid' => $_GET["vid"],
-                    //             'vcode' => $_GET["vcode"],
-                    //             'study_id' => $_GET['sid'],
-                    //             'other_herbal' => Input::get('other_herbal'),
-                    //             'surgery_performed' => Input::get('surgery_performed'),
-                    //             'surgery' => Input::get('surgery')[$i],
-                    //             'surgery_start' => Input::get('surgery_start')[$i],
-                    //             'surgery_number' => Input::get('surgery_number')[$i],
-                    //             'surgery_remarks' => Input::get('surgery_remarks')[$i],
-                    //             'crf1_cmpltd_date' => Input::get('crf1_cmpltd_date'),
-                    //             'patient_id' => $_GET['cid'],
-                    //             'staff_id' => $user->data()->id,
-                    //             'status' => 1,
-                    //             'created_on' => date('Y-m-d'),
-                    //             'site_id' => $user->data()->site_id,
-                    //         ));
-                    //     }
-                    // }
-
-
-                    $user->updateRecord('clients', array(
-                        'nimregenin' => Input::get('nimregenin_herbal'),
-                    ), $_GET['cid']);
-
-                    $successMessage = 'CRF1 Updated Successful';
-                    Redirect::to('info.php?id=6&cid=' . $_GET['cid'] . '&vid=' . $_GET['vid'] . '&vcode=' . $_GET['vcode'] . '&sid=' . $_GET['sid']);
-                } catch (Exception $e) {
-                    die($e->getMessage());
-                }
-            } else {
-                $pageError = $validate->errors();
-            }
-        } elseif (Input::get('update_crf2')) {
-            $validate = $validate->check($_POST, array(
-                'crf2_date' => array(
-                    'required' => true,
-                ),
-
-            ));
-            if ($validate->passed()) {
-                try {
-                    $user->updateRecord('crf2', array(
-                        'study_id' => $_GET['sid'],
-                        'vid' => $_GET['vid'],
-                        'vcode' => $_GET['vcode'],
-                        'crf2_date' => Input::get('crf2_date'),
-                        'height' => Input::get('height'),
-                        'weight' => Input::get('weight'),
-                        'bmi' => Input::get('bmi'),
-                        'time' => Input::get('time'),
-                        'temperature' => Input::get('temperature'),
-                        'method' => Input::get('method'),
-                        'respiratory_rate' => Input::get('respiratory_rate'),
-                        'heart_rate' => Input::get('heart_rate'),
-                        'systolic' => Input::get('systolic'),
-                        'diastolic' => Input::get('diastolic'),
-                        'time2' => Input::get('time2'),
-                        'appearance' => Input::get('appearance'),
-                        'appearance_comments' => Input::get('appearance_comments'),
-                        'appearance_signifcnt' => Input::get('appearance_signifcnt'),
-                        'heent' => Input::get('heent'),
-                        'heent_comments' => Input::get('heent_comments'),
-                        'heent_signifcnt' => Input::get('heent_signifcnt'),
-                        'respiratory' => Input::get('respiratory'),
-                        'respiratory_comments' => Input::get('respiratory_comments'),
-                        'respiratory_signifcnt' => Input::get('respiratory_signifcnt'),
-                        'cardiovascular' => Input::get('cardiovascular'),
-                        'cardiovascular_comments' => Input::get('cardiovascular_comments'),
-                        'cardiovascular_signifcnt' => Input::get('cardiovascular_signifcnt'),
-                        'abdnominal' => Input::get('abdnominal'),
-                        'abdnominal_comments' => Input::get('abdnominal_comments'),
-                        'abdnominal_signifcnt' => Input::get('abdnominal_signifcnt'),
-                        'urogenital' => Input::get('urogenital'),
-                        'urogenital_comments' => Input::get('urogenital_comments'),
-                        'urogenital_signifcnt' => Input::get('urogenital_signifcnt'),
-                        'musculoskeletal' => Input::get('musculoskeletal'),
-                        'musculoskeletal_comments' => Input::get('musculoskeletal_comments'),
-                        'musculoskeletal_signifcnt' => Input::get('musculoskeletal_signifcnt'),
-                        'neurological' => Input::get('neurological'),
-                        'neurological_comments' => Input::get('neurological_comments'),
-                        'neurological_signifcnt' => Input::get('neurological_signifcnt'),
-                        'psychological' => Input::get('psychological'),
-                        'psychological_comments' => Input::get('psychological_comments'),
-                        'psychological_signifcnt' => Input::get('psychological_signifcnt'),
-                        'endocrime' => Input::get('endocrime'),
-                        'endocrime_comments' => Input::get('endocrime_comments'),
-                        'endocrime_signifcnt' => Input::get('endocrime_signifcnt'),
-                        'lymphatic' => Input::get('lymphatic'),
-                        'lymphatic_comments' => Input::get('lymphatic_comments'),
-                        'lymphatic_signifcnt' => Input::get('lymphatic_signifcnt'),
-                        'skin' => Input::get('skin'),
-                        'skin_comments' => Input::get('skin_comments'),
-                        'skin_signifcnt' => Input::get('skin_signifcnt'),
-                        'local_examination' => Input::get('local_examination'),
-                        'local_examination_comments' => Input::get('local_examination_comments'),
-                        'local_examination_signifcnt' => Input::get('local_examination_signifcnt'),
-                        'physical_exams_other' => Input::get('physical_exams_other'),
-                        'physical_other_specify' => Input::get('physical_other_specify'),
-                        'physical_other_system' => Input::get('physical_other_system'),
-                        'physical_other_comments' => Input::get('physical_other_comments'),
-                        'physical_other_signifcnt' => Input::get('physical_other_signifcnt'),
-                        'additional_notes' => Input::get('additional_notes'),
-                        'physical_performed' => Input::get('physical_performed'),
-                        'crf2_cmpltd_date' => Input::get('crf2_cmpltd_date'),
-                        'patient_id' => $_GET['cid'],
-                        'staff_id' => $user->data()->id,
-                        'status' => 1,
-                        'created_on' => date('Y-m-d'),
-                        'site_id' => $user->data()->site_id,
-                    ), Input::get('id'));
-                    $successMessage = 'CRF2 Updated Successful';
-                    Redirect::to('info.php?id=6&cid=' . $_GET['cid'] . '&vid=' . $_GET['vid'] . '&vcode=' . $_GET['vcode'] . '&sid=' . $_GET['sid']);
-                } catch (Exception $e) {
-                    die($e->getMessage());
-                }
-            } else {
-                $pageError = $validate->errors();
-            }
-        } elseif (Input::get('update_crf3')) {
-            $validate = $validate->check($_POST, array(
-                'crf3_date' => array(
-                    'required' => true,
-                ),
-
-            ));
-            if ($validate->passed()) {
-                try {
-                    $user->updateRecord('crf3', array(
-                        'study_id' => $_GET['sid'],
-                        'vid' => $_GET["vid"],
-                        'vcode' => $_GET["vcode"],
-                        'crf3_date' => Input::get('crf3_date'),
-                        'fever' => Input::get('fever'),
-                        'vomiting' => Input::get('vomiting'),
-                        'diarrhoea' => Input::get('diarrhoea'),
-                        'headaches' => Input::get('headaches'),
-                        'loss_appetite' => Input::get('loss_appetite'),
-                        'nausea' => Input::get('nausea'),
-                        'difficult_breathing' => Input::get('difficult_breathing'),
-                        'sore_throat' => Input::get('sore_throat'),
-                        'fatigue' => Input::get('fatigue'),
-                        'muscle_pain' => Input::get('muscle_pain'),
-                        'loss_consciousness' => Input::get('loss_consciousness'),
-                        'backpain' => Input::get('backpain'),
-                        'weight_loss' => Input::get('weight_loss'),
-                        'heartburn_indigestion' => Input::get('heartburn_indigestion'),
-                        'swelling' => Input::get('swelling'),
-                        'pv_bleeding' => Input::get('pv_bleeding'),
-                        'pv_discharge' => Input::get('pv_discharge'),
-                        'micitrition' => Input::get('micitrition'),
-                        'convulsions' => Input::get('convulsions'),
-                        'blood_urine' => Input::get('blood_urine'),
-                        'symptoms_other' => Input::get('symptoms_other'),
-                        'symptoms_other_specify' => Input::get('symptoms_other_specify'),
-                        'other_comments' => Input::get('other_comments'),
-                        'adherence' => Input::get('adherence'),
-                        'adherence_specify' => Input::get('adherence_specify'),
-                        'herbal_medication' => Input::get('herbal_medication'),
-                        'herbal_ingredients' => Input::get('herbal_ingredients'),
-                        'crf3_cmpltd_date' => Input::get('crf3_cmpltd_date'),
-                        'patient_id' => $_GET['cid'],
-                        'staff_id' => $user->data()->id,
-                        'status' => 1,
-                        'created_on' => date('Y-m-d'),
-                        'site_id' => $user->data()->site_id,
-                    ), Input::get('id'));
-                    $successMessage = 'CRF3 updated Successful';
-                    Redirect::to('info.php?id=6&cid=' . $_GET['cid'] . '&vid=' . $_GET['vid'] . '&vcode=' . $_GET['vcode'] . '&sid=' . $_GET['sid']);
-                } catch (Exception $e) {
-                    die($e->getMessage());
-                }
-            } else {
-                $pageError = $validate->errors();
-            }
-        } elseif (Input::get('update_crf4')) {
-            $validate = $validate->check($_POST, array(
-                'sample_date' => array(
-                    'required' => true,
-                ),
-            ));
-            if ($validate->passed()) {
-                try {
-                    $user->updateRecord('crf4', array(
-                        'study_id' => $_GET['sid'],
-                        'vid' => $_GET["vid"],
-                        'vcode' => $_GET["vcode"],
-                        'sample_date' => Input::get('sample_date'),
-                        'renal_urea' => Input::get('renal_urea'),
-                        'renal_urea_units' => Input::get('renal_urea_units'),
-                        'renal_creatinine' => Input::get('renal_creatinine'),
-                        'renal_creatinine_units' => Input::get('renal_creatinine_units'),
-                        'renal_creatinine_grade' => Input::get('renal_creatinine_grade'),
-                        'renal_egfr' => Input::get('renal_egfr'),
-                        'renal_egfr_units' => Input::get('renal_egfr_units'),
-                        'renal_egfr_grade' => Input::get('renal_egfr_grade'),
-                        'liver_ast' => Input::get('liver_ast'),
-                        'liver_ast_grade' => Input::get('liver_ast_grade'),
-                        'liver_alt' => Input::get('liver_alt'),
-                        'liver_alt_grade' => Input::get('liver_alt_grade'),
-                        'liver_alp' => Input::get('liver_alp'),
-                        'liver_alp_grade' => Input::get('liver_alp_grade'),
-                        'liver_pt' => Input::get('liver_pt'),
-                        'liver_pt_grade' => Input::get('liver_pt_grade'),
-                        'liver_ptt' => Input::get('liver_ptt'),
-                        'liver_ptt_grade' => Input::get('liver_ptt_grade'),
-                        'liver_inr' => Input::get('liver_inr'),
-                        'liver_inr_grade' => Input::get('liver_inr_grade'),
-                        'liver_ggt' => Input::get('liver_ggt'),
-                        'liver_albumin' => Input::get('liver_albumin'),
-                        'liver_albumin_grade' => Input::get('liver_albumin_grade'),
-                        'liver_bilirubin_total' => Input::get('liver_bilirubin_total'),
-                        'liver_bilirubin_total_units' => Input::get('liver_bilirubin_total_units'),
-                        'bilirubin_total_grade' => Input::get('bilirubin_total_grade'),
-                        'liver_bilirubin_direct' => Input::get('liver_bilirubin_direct'),
-                        'liver_bilirubin_direct_units' => Input::get('liver_bilirubin_direct_units'),
-                        'bilirubin_direct_grade' => Input::get('bilirubin_direct_grade'),
-                        'rbg' => Input::get('rbg'),
-                        'rbg_units' => Input::get('rbg_units'),
-                        'rbg_grade' => Input::get('rbg_grade'),
-                        'ldh' => Input::get('ldh'),
-                        'crp' => Input::get('crp'),
-                        'd_dimer' => Input::get('d_dimer'),
-                        'ferritin' => Input::get('ferritin'),
-                        'wbc' => Input::get('wbc'),
-                        'wbc_grade' => Input::get('wbc_grade'),
-                        'abs_neutrophil' => Input::get('abs_neutrophil'),
-                        'abs_neutrophil_grade' => Input::get('abs_neutrophil_grade'),
-                        'abs_lymphocytes' => Input::get('abs_lymphocytes'),
-                        'abs_lymphocytes_grade' => Input::get('abs_lymphocytes_grade'),
-                        'abs_eosinophils' => Input::get('abs_eosinophils'),
-                        'abs_monocytes' => Input::get('abs_monocytes'),
-                        'abs_basophils' => Input::get('abs_basophils'),
-                        'hb' => Input::get('hb'),
-                        'hb_grade' => Input::get('hb_grade'),
-                        'mcv' => Input::get('mcv'),
-                        'mch' => Input::get('mch'),
-                        'hct' => Input::get('hct'),
-                        'rbc' => Input::get('rbc'),
-                        'plt' => Input::get('plt'),
-                        'plt_grade' => Input::get('plt_grade'),
-                        'cancer' => Input::get('cancer'),
-                        'prostate' => Input::get('prostate'),
-                        'chest_xray' => Input::get('chest_xray'),
-                        'chest_specify' => Input::get('chest_specify'),
-                        'ct_chest' => Input::get('ct_chest'),
-                        'ct_chest_specify' => Input::get('ct_chest_specify'),
-                        'ultrasound' => Input::get('ultrasound'),
-                        'ultrasound_specify' => Input::get('ultrasound_specify'),
-                        'crf4_cmpltd_date' => Input::get('crf4_cmpltd_date'),
-                        'patient_id' => $_GET['cid'],
-                        'staff_id' => $user->data()->id,
-                        'status' => 1,
-                        'created_on' => date('Y-m-d'),
-                        'site_id' => $user->data()->site_id,
-                    ), Input::get('id'));
-                    $successMessage = 'CRF4 updated Successful';
-                    Redirect::to('info.php?id=6&cid=' . $_GET['cid'] . '&vid=' . $_GET['vid'] . '&vcode=' . $_GET['vcode'] . '&sid=' . $_GET['sid']);
-                } catch (Exception $e) {
-                    die($e->getMessage());
-                }
-            } else {
-                $pageError = $validate->errors();
-            }
-        } elseif (Input::get('update_crf5')) {
-            $validate = $validate->check($_POST, array(
-                'date_reported' => array(
-                    'required' => true,
-                ),
-
-            ));
-            if ($validate->passed()) {
-                try {
-                    $user->updateRecord('crf5', array(
-                        'study_id' => $_GET['sid'],
-                        'vid' => $_GET["vid"],
-                        'vcode' => $_GET["vcode"],
-                        'date_reported' => Input::get('date_reported'),
-                        'ae_description' => Input::get('ae_description'),
-                        'ae_category' => Input::get('ae_category'),
-                        'ae_start_date' => Input::get('ae_start_date'),
-                        'ae_ongoing' => Input::get('ae_ongoing'),
-                        'ae_end_date' => Input::get('ae_end_date'),
-                        'ae_outcome' => Input::get('ae_outcome'),
-                        'ae_severity' => Input::get('ae_severity'),
-                        'ae_serious' => Input::get('ae_serious'),
-                        'ae_expected' => Input::get('ae_expected'),
-                        'ae_treatment' => Input::get('ae_treatment'),
-                        'ae_taken' => Input::get('ae_taken'),
-                        'ae_relationship' => Input::get('ae_relationship'),
-                        'ae_staff_initial' => Input::get('ae_staff_initial'),
-                        'ae_date' => Input::get('ae_date'),
-                        'crf5_cmpltd_date' => Input::get('crf5_cmpltd_date'),
-                        'patient_id' => $_GET['cid'],
-                        'staff_id' => $user->data()->id,
-                        'status' => 1,
-                        'created_on' => date('Y-m-d'),
-                        'site_id' => $user->data()->site_id,
-                    ), Input::get('id'));
-                    $successMessage = 'CRF5 updated Successful';
-                    Redirect::to('info.php?id=6&cid=' . $_GET['cid'] . '&vid=' . $_GET['vid'] . '&vcode=' . $_GET['vcode'] . '&sid=' . $_GET['sid']);
-                } catch (Exception $e) {
-                    die($e->getMessage());
-                }
-            } else {
-                $pageError = $validate->errors();
-            }
-        } elseif (Input::get('update_crf6')) {
-            $validate = $validate->check($_POST, array(
-                'today_date' => array(
-                    'required' => true,
-                ),
-
-            ));
-            if ($validate->passed()) {
-                try {
-                    $user->updateRecord('crf6', array(
-                        'study_id' => $_GET['sid'],
-                        'vid' => $_GET["vid"],
-                        'vcode' => $_GET["vcode"],
-                        'today_date' => Input::get('today_date'),
-                        'terminate_date' => Input::get('terminate_date'),
-                        'completed120days' => Input::get('completed120days'),
-                        'reported_dead' => Input::get('reported_dead'),
-                        'withdrew_consent' => Input::get('withdrew_consent'),
-                        'start_date' => Input::get('start_date'),
-                        'end_date' => Input::get('end_date'),
-                        'date_death' => Input::get('date_death'),
-                        'primary_cause' => Input::get('primary_cause'),
-                        'secondary_cause' => Input::get('secondary_cause'),
-                        'withdrew_reason' => Input::get('withdrew_reason'),
-                        'withdrew_other' => Input::get('withdrew_other'),
-                        'terminated_reason' => Input::get('terminated_reason'),
-                        'outcome' => Input::get('outcome'),
-                        'outcome_date' => Input::get('outcome_date'),
-                        'summary' => Input::get('summary'),
-                        'clinician_name' => Input::get('clinician_name'),
-                        'crf6_cmpltd_date' => Input::get('crf6_cmpltd_date'),
-                        'patient_id' => $_GET['cid'],
-                        'staff_id' => $user->data()->id,
-                        'status' => 1,
-                        'created_on' => date('Y-m-d'),
-                        'site_id' => $user->data()->site_id,
-                    ), Input::get('id'));
-                    $successMessage = 'CRF6 updated Successful';
-                    Redirect::to('info.php?id=6&cid=' . $_GET['cid'] . '&vid=' . $_GET['vid'] . '&vcode=' . $_GET['vcode'] . '&sid=' . $_GET['sid']);
-                } catch (Exception $e) {
-                    die($e->getMessage());
-                }
-            } else {
-                $pageError = $validate->errors();
-            }
-        } elseif (Input::get('update_crf7')) {
-            $validate = $validate->check($_POST, array(
-                'tdate' => array(
-                    'required' => true,
-                ),
-
-            ));
-            if ($validate->passed()) {
-                try {
-                    $user->updateRecord('crf7', array(
-                        'study_id' => $_GET['sid'],
-                        'vid' => $_GET['vid'],
-                        'vcode' => $_GET['vcode'],
-                        'tdate' => Input::get('tdate'),
-                        'mobility' => Input::get('mobility'),
-                        'self_care' => Input::get('self_care'),
-                        'usual_active' => Input::get('usual_active'),
-                        'pain' => Input::get('pain'),
-                        'anxiety' => Input::get('anxiety'),
-                        'FDATE' => Input::get('FDATE'),
-                        'cpersid' => Input::get('cpersid'),
-                        'cDATE' => Input::get('cDATE'),
-                        'patient_id' => $_GET['cid'],
-                        'staff_id' => $user->data()->id,
-                        'status' => 1,
-                        'created_on' => date('Y-m-d'),
-                        'site_id' => $user->data()->site_id,
-                    ), Input::get('id'));
-                    $successMessage = 'CRF7 Updated Successful';
-                    Redirect::to('info.php?id=6&cid=' . $_GET['cid'] . '&vid=' . $_GET['vid'] . '&vcode=' . $_GET['vcode'] . '&sid=' . $_GET['sid']);
-                } catch (Exception $e) {
-                    die($e->getMessage());
-                }
             } else {
                 $pageError = $validate->errors();
             }
@@ -2590,14 +2012,14 @@ if ($user->isLoggedIn()) {
                                             <!-- <th><input type="checkbox" name="checkall" /></th> -->
                                             <td width="2">#</td>
                                             <th width="20">Picture</th>
-                                            <th width="8%">ParticipantID</th>
+                                            <!-- <th width="8%">ParticipantID</th> -->
                                             <th width="8%">Enrollment Date</th>
                                             <!-- <th width="6%">AGREE USING NIMREGENIN ?</th> -->
-                                            <th width="6%">USING NIMREGENIN ?</th>
+                                            <!-- <th width="6%">USING NIMREGENIN ?</th> -->
                                             <th width="10%">Name</th>
                                             <th width="8%">Gender</th>
                                             <th width="8%">Age</th>
-                                            <th width="3%">PATIENT TYPE</th>
+                                            <!-- <th width="3%">PATIENT TYPE</th> -->
                                             <!-- <th width="3%">TREATMENT TYPE</th> -->
                                             <!-- <th width="4%">CATEGORY</th>  -->
                                             <th width="8%">SITE</th>
@@ -2648,44 +2070,27 @@ if ($user->isLoggedIn()) {
                                                     } ?>
                                                     <a href="#img<?= $client['id'] ?>" data-toggle="modal"><img src="<?= $img ?>" width="90" height="90" class="" /></a>
                                                 </td>
-                                                <td><?= $client['study_id'] ?></td>
                                                 <td><?= $visit_date['visit_date'] ?></td>
-                                                <!-- <?php if ($client['consented_nimregenin'] == 1) { ?>
-                                                    <td>Yes</td>
-                                                <?php } else { ?>
-                                                    <td>No</td>
-                                                <?php } ?> -->
-                                                <?php if ($client['nimregenin'] == 1) { ?>
-                                                    <td>
-                                                        <a href="#" class="btn btn-info">YES</a>
-                                                    </td>
-                                                <?php } elseif ($client['nimregenin'] == 2) { ?>
-                                                    <td>
-                                                        <a href="#" class="btn btn-warning">NO</a>
-                                                    </td>
-                                                <?php } else { ?>
-                                                    <td>
-                                                        <a href="#" class="btn btn-danger">NOT DONE</a>
-                                                    </td>
-                                                <?php } ?> <td> <?= $client['firstname'] . ' ' . $client['lastname'] ?></td>
+                                                 <td> <?= $client['firstname'] . ' ' . $client['lastname'] ?></td>
                                                 <td><?= $client['gender'] ?></td>
                                                 <td><?= $client['age'] ?></td>
-                                                <td><?= $cat ?></td>
+                                                <!-- <td><?= $cat ?></td> -->
 
-                                                <?php if ($category['patient_category'] == 1) { ?>
+                                                <!-- <?php if ($category['patient_category'] == 1) { ?>
                                                     <td>Intervention</td>
                                                 <?php } elseif ($category['patient_category'] == 2) { ?>
                                                     <td>Control</td>
                                                 <?php } else { ?>
                                                     <td>Not Done</td>
-                                                <?php } ?>
+                                                <?php } ?> -->
                                                 <!-- <?php if ($category['patient_category'] == 1) { ?>
                                                     <td>NEW PATIENT</td>
                                                 <?php } else { ?>
                                                     <td>OLD PATIENT</td>
                                                 <?php } ?>
 
-                                                <?php if ($client['treatment_type'] == 1) { ?>
+                                                <?php if ($client['treatment_type'] == 1) { 
+                                                    ?>
                                                     <td>Radiotherapy</td>
                                                 <?php } elseif ($client['treatment_type'] == 1) { ?>
                                                     <td>Chemotherapy</td>
@@ -2693,9 +2098,9 @@ if ($user->isLoggedIn()) {
                                                     <td>Surgery</td>
                                                 <?php } ?> -->
                                                 <?php if ($client['site_id'] == 1) { ?>
-                                                    <td>MNH - UPANGA </td>
+                                                    <td>MAKUMBUSHO </td>
                                                 <?php } else { ?>
-                                                    <td>ORCI </td>
+                                                    <td>BUZA </td>
                                                 <?php } ?>
 
                                                 <?php if ($_GET['status'] == '') { ?>
@@ -3461,10 +2866,10 @@ if ($user->isLoggedIn()) {
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="col-sm-4">
-                                                                        <div class="row-form clearfix">
-                                                                            <!-- select -->
-                                                                            <div class="form-group">
+                                                                    <!-- <div class="col-sm-4">
+                                                                        <div class="row-form clearfix"> -->
+                                                                    <!-- select -->
+                                                                    <!-- <div class="form-group">
                                                                                 <label>Aged eighteen years and above</label>
                                                                                 <select name="age_18" style="width: 100%;" required>
                                                                                     <option value="<?= $screening['age_18'] ?>"><?php if ($screening) {
@@ -3484,9 +2889,9 @@ if ($user->isLoggedIn()) {
                                                                     </div>
 
                                                                     <div class="col-sm-4">
-                                                                        <div class="row-form clearfix">
-                                                                            <!-- select -->
-                                                                            <div class="form-group">
+                                                                        <div class="row-form clearfix"> -->
+                                                                    <!-- select -->
+                                                                    <!-- <div class="form-group">
                                                                                 <label>Confirmed cancer with biopsy?</label>
                                                                                 <select name="biopsy" style="width: 100%;" required>
                                                                                     <option value="<?= $screening['biopsy'] ?>"><?php if ($screening) {
@@ -3513,9 +2918,9 @@ if ($user->isLoggedIn()) {
                                                                 <div class="row">
 
                                                                     <div class="col-sm-4">
-                                                                        <div class="row-form clearfix">
-                                                                            <!-- select -->
-                                                                            <div class="form-group">
+                                                                        <div class="row-form clearfix"> -->
+                                                                    <!-- select -->
+                                                                    <!-- <div class="form-group">
                                                                                 <label>Brain cancer</label>
                                                                                 <select name="brain_cancer" style="width: 100%;" required>
                                                                                     <option value="<?= $screening['brain_cancer'] ?>"><?php if ($screening) {
@@ -3535,9 +2940,9 @@ if ($user->isLoggedIn()) {
                                                                     </div>
 
                                                                     <div class="col-sm-4">
-                                                                        <div class="row-form clearfix">
-                                                                            <!-- select -->
-                                                                            <div class="form-group">
+                                                                        <div class="row-form clearfix"> -->
+                                                                    <!-- select -->
+                                                                    <!-- <div class="form-group">
                                                                                 <label>Breast cancer</label>
                                                                                 <select name="breast_cancer" style="width: 100%;" required>
                                                                                     <option value="<?= $screening['breast_cancer'] ?>"><?php if ($screening) {
@@ -3559,9 +2964,9 @@ if ($user->isLoggedIn()) {
                                                                     <?php if ($client['gender'] == "female") { ?>
 
                                                                         <div class="col-sm-4">
-                                                                            <div class="row-form clearfix">
-                                                                                <!-- select -->
-                                                                                <div class="form-group">
+                                                                            <div class="row-form clearfix"> -->
+                                                                    <!-- select -->
+                                                                    <!-- <div class="form-group">
                                                                                     <label>Cervical cancer</label>
                                                                                     <select name="cervical_cancer" style="width: 100%;" required>
                                                                                         <option value="<?= $screening['cervical_cancer'] ?>"><?php if ($screening) {
@@ -3583,9 +2988,9 @@ if ($user->isLoggedIn()) {
                                                                     <?php } elseif ($client['gender'] == "male") { ?>
 
                                                                         <div class="col-sm-4">
-                                                                            <div class="row-form clearfix">
-                                                                                <!-- select -->
-                                                                                <div class="form-group">
+                                                                            <div class="row-form clearfix"> -->
+                                                                    <!-- select -->
+                                                                    <!-- <div class="form-group">
                                                                                     <label>Prostate cancer</label>
                                                                                     <select name="prostate_cancer" style="width: 100%;" required>
                                                                                         <option value="<?= $screening['prostate_cancer'] ?>"><?php if ($screening) {
@@ -3611,9 +3016,9 @@ if ($user->isLoggedIn()) {
                                                                 <div class="row">
 
                                                                     <div class="col-sm-4">
-                                                                        <div class="row-form clearfix">
-                                                                            <!-- select -->
-                                                                            <div class="form-group">
+                                                                        <div class="row-form clearfix"> -->
+                                                                    <!-- select -->
+                                                                    <!-- <div class="form-group">
                                                                                 <label>Participant Category</label>
                                                                                 <select name="patient_category" style="width: 100%;" required>
                                                                                     <option value="<?= $screening['patient_category'] ?>"><?php if ($screening) {
@@ -3630,7 +3035,7 @@ if ($user->isLoggedIn()) {
                                                                                 </select>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
+                                                                    </div> -->
                                                                     <div class="col-sm-4">
                                                                         <div class="row-form clearfix">
                                                                             <!-- select -->
@@ -3653,10 +3058,10 @@ if ($user->isLoggedIn()) {
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="col-sm-4">
-                                                                        <div class="row-form clearfix">
-                                                                            <!-- select -->
-                                                                            <div class="form-group">
+                                                                    <!-- <div class="col-sm-4">
+                                                                        <div class="row-form clearfix"> -->
+                                                                    <!-- select -->
+                                                                    <!-- <div class="form-group">
                                                                                 <label>Did the participant consent to use NIMREGENIN preparation?</label>
                                                                                 <select name="consented_nimregenin" style="width: 100%;" required>
                                                                                     <option value="<?= $screening['consented_nimregenin'] ?>"><?php if ($screening) {
@@ -3673,7 +3078,7 @@ if ($user->isLoggedIn()) {
                                                                                 </select>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
+                                                                    </div> -->
 
 
                                                                     <div class="col-sm-12">
@@ -3725,7 +3130,7 @@ if ($user->isLoggedIn()) {
                                                                     <?php if ($client['gender'] == "female") { ?>
 
 
-                                                                        <div class="row-form clearfix">
+                                                                        <!-- <div class="row-form clearfix">
                                                                             <div class="col-md-8">Is the participant pregnant?</div>
                                                                             <div class="col-md-4">
                                                                                 <select name="pregnant" style="width: 100%;" required>
@@ -3810,9 +3215,9 @@ if ($user->isLoggedIn()) {
                                                                                 <option value="2">No</option>
                                                                             </select>
                                                                         </div>
-                                                                    </div>
+                                                                    </div> -->
 
-                                                                    <div class="dr"><span></span></div>
+                                                                        <div class="dr"><span></span></div>
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
@@ -5210,10 +4615,11 @@ if ($user->isLoggedIn()) {
                                                     <th width="3%">Visit Code</th>
                                                     <th width="10%">Visit Type</th>
                                                     <th width="10%">Expected Date</th>
+                                                    <th width="10%">Expected Date</th>
                                                     <th width="10%">Visit Date</th>
                                                     <th width="5%">Status</th>
                                                     <th width="15%">Action</th>
-                                                    <th width="15%">Action</th>
+
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -5236,6 +4642,8 @@ if ($user->isLoggedIn()) {
                                                     if ($visit['visit_status']) {
                                                     }
 
+                                                    $nameOfDay = date('l', strtotime($visit['expected_date']));
+
 
                                                     // print_r($visit['visit_status']);
                                                     if ($visit['status'] == 0) {
@@ -5257,13 +4665,45 @@ if ($user->isLoggedIn()) {
                                                         $btnL = 'Add';
                                                     }
                                                     if ($visit['visit_code'] == 'D0') {
-                                                        $v_typ = 'Enrollment';
-                                                    } elseif ($visit['visit_code'] == 'END') {
-                                                        $v_typ = 'END STUDY';
-                                                    } elseif ($visit['visit_code'] == 'AE') {
-                                                        $v_typ = 'AE';
+                                                        $v_typ = 'Screening ';
+                                                    } elseif ($visit['visit_code'] == 'D1') {
+                                                        $v_typ = 'DOSE 1';
+                                                    } elseif ($visit['visit_code'] == 'D2') {
+                                                        $v_typ = 'PHONE CALL';
+                                                    } elseif ($visit['visit_code'] == 'D3') {
+                                                        $v_typ = 'PHONE CALL';
+                                                    } elseif ($visit['visit_code'] == 'D4') {
+                                                        $v_typ = 'PHONE CALL';
+                                                    } elseif ($visit['visit_code'] == 'D5') {
+                                                        $v_typ = 'PHONE CALL';
+                                                    } elseif ($visit['visit_code'] == 'D6') {
+                                                        $v_typ = 'PHONE CALL';
+                                                    } elseif ($visit['visit_code'] == 'D7') {
+                                                        $v_typ = 'PHONE CALL';
+                                                    } elseif ($visit['visit_code'] == 'D8') {
+                                                        $v_typ = 'PHONE CALL';
+                                                    } elseif ($visit['visit_code'] == 'D28') {
+                                                        $v_typ = 'DOSE 2';
+                                                    } elseif ($visit['visit_code'] == 'D30') {
+                                                        $v_typ = 'PHONE CALL';
+                                                    } elseif ($visit['visit_code'] == 'D31') {
+                                                        $v_typ = 'PHONE CALL';
+                                                    } elseif ($visit['visit_code'] == 'D32') {
+                                                        $v_typ = 'PHONE CALL';
+                                                    } elseif ($visit['visit_code'] == 'D33') {
+                                                        $v_typ = 'PHONE CALL';
+                                                    } elseif ($visit['visit_code'] == 'D34') {
+                                                        $v_typ = 'PHONE CALL';
+                                                    } elseif ($visit['visit_code'] == 'D35') {
+                                                        $v_typ = 'PHONE CALL';
+                                                    } elseif ($visit['visit_code'] == 'D36') {
+                                                        $v_typ = 'PHONE CALL';
+                                                    } elseif ($visit['visit_code'] == 'D57') {
+                                                        $v_typ = 'CLINIC VISIT';
+                                                    } elseif ($visit['visit_code'] == 'D215') {
+                                                        $v_typ = 'LAST VISIT';
                                                     } else {
-                                                        $v_typ = 'Follow Up';
+                                                        $v_typ = 'UNSCHEDULE VISIT';
                                                     }
 
                                                     if ($x == 1 || ($x > 1 && $sc['eligibility'] == 1 && $lb['eligibility'] == 1)) {
@@ -5274,6 +4714,7 @@ if ($user->isLoggedIn()) {
                                                             <td> <?= $visit['visit_name'] ?></td>
                                                             <td> <?= $visit['visit_code'] ?></td>
                                                             <td> <?= $v_typ ?></td>
+                                                            <td> <?= $nameOfDay ?></td>
                                                             <td> <?= $visit['expected_date'] ?></td>
                                                             <td> <?= $visit['visit_date'] ?></td>
                                                             <td>
@@ -5295,52 +4736,7 @@ if ($user->isLoggedIn()) {
                                                                         <a href="#addVisit<?= $visit['id'] ?>" role="button" class="btn btn-info" data-toggle="modal"><?= $btnV ?>Visit</a>
                                                                     <?php } ?>
                                                             </td>
-                                                            <td>
 
-                                                                <?php if ($visit['status'] == 1 && $visit['visit_code'] == 'D0') { ?>
-
-                                                                    <?php if ($crf1 && $crf2 && $crf3 && $crf4 && $crf7) { ?>
-                                                                        <a href="info.php?id=6&cid=<?= $_GET['cid'] ?>&vid=<?= $visit['id'] ?>&vcode=<?= $visit['visit_code'] ?>&sid=<?= $client['study_id'] ?>" role="button" class="btn btn-info">Edit Study CRF</a>
-                                                                    <?php } else { ?>
-                                                                        <a href="info.php?id=6&cid=<?= $_GET['cid'] ?>&vid=<?= $visit['id'] ?>&vcode=<?= $visit['visit_code'] ?>&sid=<?= $client['study_id'] ?>" role="button" class="btn btn-warning">Add Study CRF</a>
-                                                                    <?php }
-                                                                    ?>
-
-
-
-                                                                <?php } elseif ($visit['status'] == 1 && ($visit['visit_code'] == 'D7' || $visit['visit_code'] == 'D14' || $visit['visit_code'] == 'D30' || $visit['visit_code'] == 'D60' || $visit['visit_code'] == 'D90' || $visit['visit_code'] == 'D120')) { ?>
-
-                                                                    <?php if ($crf2 && $crf3 && $crf4 && $crf7) { ?>
-                                                                        <a href="info.php?id=6&cid=<?= $_GET['cid'] ?>&vid=<?= $visit['id'] ?>&vcode=<?= $visit['visit_code'] ?>&sid=<?= $client['study_id'] ?>" role="button" class="btn btn-info">Edit Study CRF</a>
-                                                                    <?php } else { ?>
-                                                                        <a href="info.php?id=6&cid=<?= $_GET['cid'] ?>&vid=<?= $visit['id'] ?>&vcode=<?= $visit['visit_code'] ?>&sid=<?= $client['study_id'] ?>" role="button" class="btn btn-warning">Add Study CRF</a>
-                                                                    <?php }
-                                                                    ?>
-
-
-                                                                <?php } elseif ($visit['status'] == 1 && $visit['visit_code'] == 'END') { ?>
-
-                                                                    <?php if ($crf6) { ?>
-                                                                        <a href="info.php?id=6&cid=<?= $_GET['cid'] ?>&vid=<?= $visit['id'] ?>&vcode=<?= $visit['visit_code'] ?>&sid=<?= $client['study_id'] ?>" role="button" class="btn btn-info">Edit Study CRF</a>
-                                                                    <?php } else { ?>
-                                                                        <a href="info.php?id=6&cid=<?= $_GET['cid'] ?>&vid=<?= $visit['id'] ?>&vcode=<?= $visit['visit_code'] ?>&sid=<?= $client['study_id'] ?>" role="button" class="btn btn-warning">Add Study CRF</a>
-                                                                    <?php }
-                                                                    ?>
-
-
-                                                                <?php } elseif ($visit['status'] == 1 && $visit['visit_code'] == 'AE') { ?>
-
-                                                                    <?php if ($crf5) { ?>
-                                                                        <a href="info.php?id=6&cid=<?= $_GET['cid'] ?>&vid=<?= $visit['id'] ?>&vcode=<?= $visit['visit_code'] ?>&sid=<?= $client['study_id'] ?>" role="button" class="btn btn-info">Edit Study CRF</a>
-                                                                    <?php } else { ?>
-                                                                        <a href="info.php?id=6&cid=<?= $_GET['cid'] ?>&vid=<?= $visit['id'] ?>&vcode=<?= $visit['visit_code'] ?>&sid=<?= $client['study_id'] ?>" role="button" class="btn btn-warning">Add Study CRF</a>
-                                                                    <?php } ?>
-
-                                                                <?php }
-                                                                ?>
-
-
-                                                            </td>
                                                         <?php } ?>
                                                         </tr>
                                                         <div class="modal fade" id="addVisit<?= $visit['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
