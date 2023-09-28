@@ -3,7 +3,7 @@ session_start();
 
 $GLOBALS['config'] = array(
   'mysql' => array(
-      'host' => 'localhost',
+      'host' => '127.0.07',
       'username' => 'root',
       'password' => '@Subaru@2022',
       'db' => 'epsts'
