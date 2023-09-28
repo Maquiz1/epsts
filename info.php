@@ -3243,10 +3243,10 @@ if ($user->isLoggedIn()) {
 
                                                                 <div class="row">
 
-                                                                    <div class="col-sm-4">
-                                                                        <div class="row-form clearfix">
+                                                                    <!-- <div class="col-sm-4">
+                                                                        <div class="row-form clearfix"> -->
                                                                             <!-- select -->
-                                                                            <div class="form-group">
+                                                                            <!-- <div class="form-group">
                                                                                 <label>Patient Type</label>
                                                                                 <select name="pt_type" id="pt_type" style="width: 100%;" required>
                                                                                     <option value="">Select</option>
@@ -3255,12 +3255,12 @@ if ($user->isLoggedIn()) {
                                                                                 </select>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
+                                                                    </div> -->
 
-                                                                    <div class="col-sm-4">
-                                                                        <div class="row-form clearfix">
+                                                                    <!-- <div class="col-sm-4">
+                                                                        <div class="row-form clearfix"> -->
                                                                             <!-- select -->
-                                                                            <div class="form-group">
+                                                                            <!-- <div class="form-group">
                                                                                 <label>Treatment Type</label>
                                                                                 <select name="treatment_type" id="treatment_type" style="width: 100%;" required>
                                                                                     <option value="">Select</option>
@@ -3276,9 +3276,9 @@ if ($user->isLoggedIn()) {
                                                                     </div>
 
                                                                     <div class="col-sm-4">
-                                                                        <div class="row-form clearfix">
+                                                                        <div class="row-form clearfix"> -->
                                                                             <!-- select -->
-                                                                            <div class="form-group">
+                                                                            <!-- <div class="form-group">
                                                                                 <label>Date Started Previous Treatment:</label>
                                                                                 <input value="" class="validate[required,custom[date]]" type="text" name="previous_date" id="previous_date" required />
                                                                                 <span>Example: 2010-12-01</span>
@@ -3290,9 +3290,9 @@ if ($user->isLoggedIn()) {
                                                                 <div class="row">
 
                                                                     <div class="col-sm-6">
-                                                                        <div class="row-form clearfix">
+                                                                        <div class="row-form clearfix"> -->
                                                                             <!-- select -->
-                                                                            <div class="form-group">
+                                                                            <!-- <div class="form-group">
                                                                                 <label>Treatment Type 2</label>
                                                                                 <select name="treatment_type2" id="treatment_type2" style="width: 100%;" required>
                                                                                     <option value="">Select</option>
@@ -3309,9 +3309,9 @@ if ($user->isLoggedIn()) {
                                                                     </div>
 
                                                                     <div class="col-sm-6">
-                                                                        <div class="row-form clearfix">
+                                                                        <div class="row-form clearfix"> -->
                                                                             <!-- select -->
-                                                                            <div class="form-group">
+                                                                            <!-- <div class="form-group">
                                                                                 <label>Date Started Previous Treatment 2:</label>
                                                                                 <input value="" type="text" name="previous_date2" id="previous_date2" />
                                                                                 <span>Example: 2010-12-01</span>
@@ -3323,9 +3323,9 @@ if ($user->isLoggedIn()) {
 
                                                                 <div class="row">
                                                                     <div class="col-sm-6">
-                                                                        <div class="row-form clearfix">
+                                                                        <div class="row-form clearfix"> -->
                                                                             <!-- select -->
-                                                                            <div class="form-group">
+                                                                            <!-- <div class="form-group">
                                                                                 <label>Total number of Cycles for That Treatment:</label>
                                                                                 <input value="" type="text" name="total_cycle" id="total_cycle" required />
                                                                             </div>
@@ -3333,34 +3333,14 @@ if ($user->isLoggedIn()) {
                                                                     </div>
 
                                                                     <div class="col-sm-6">
-                                                                        <div class="row-form clearfix">
+                                                                        <div class="row-form clearfix"> -->
+                                                                            <!-- select -->
+                                                                           /
+                                                                            <!-- select -->
+                                                                           /
                                                                             <!-- select -->
                                                                             <div class="form-group">
-                                                                                <label>Current number of Cycle for Patient Treatment</label>
-                                                                                <input value="" type="text" name="cycle_number" id="cycle_number" required />
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-
-                                                                <div class="row">
-
-                                                                    <div class="col-sm-6">
-                                                                        <div class="row-form clearfix">
-                                                                            <!-- select -->
-                                                                            <div class="form-group">
-                                                                                <label>Notes / Remark</label>
-                                                                                <textarea name="reasons" rows="4"></textarea>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="col-sm-6">
-                                                                        <div class="row-form clearfix">
-                                                                            <!-- select -->
-                                                                            <div class="form-group">
-                                                                                <label>Date of Enrollment for This Study(Day Started Treatment):</label>
+                                                                                <label>Date of Enrollment:</label>
                                                                                 <input value="" class="validate[required,custom[date]]" type="text" name="visit_date" id="visit_date" required />
                                                                                 <span>Example: 2010-12-01</span>
                                                                             </div>
@@ -3395,10 +3375,10 @@ if ($user->isLoggedIn()) {
 
                                                                 <div class="row">
 
-                                                                    <div class="col-sm-4">
-                                                                        <div class="row-form clearfix">
+                                                                    <!-- <div class="col-sm-4">
+                                                                        <div class="row-form clearfix"> -->
                                                                             <!-- select -->
-                                                                            <div class="form-group">
+                                                                            <!-- <div class="form-group">
                                                                                 <label>Patient Type</label>
                                                                                 <select name="pt_type" id="pt_type" style="width: 100%;" required>
                                                                                     <?php
@@ -3418,9 +3398,9 @@ if ($user->isLoggedIn()) {
                                                                     </div>
 
                                                                     <div class="col-sm-4">
-                                                                        <div class="row-form clearfix">
+                                                                        <div class="row-form clearfix"> -->
                                                                             <!-- select -->
-                                                                            <div class="form-group">
+                                                                            <!-- <div class="form-group">
                                                                                 <label>Treatment Type</label>
                                                                                 <select name="treatment_type" id="treatment_type" style="width: 100%;" required>
                                                                                     <?php
@@ -3452,9 +3432,9 @@ if ($user->isLoggedIn()) {
                                                                     </div>
 
                                                                     <div class="col-sm-4">
-                                                                        <div class="row-form clearfix">
+                                                                        <div class="row-form clearfix"> -->
                                                                             <!-- select -->
-                                                                            <div class="form-group">
+                                                                            <!-- <div class="form-group">
                                                                                 <label>Date Started Previous(Past) Treatment:</label>
                                                                                 <input value="<?= $client['previous_date'] ?>" class="validate[required,custom[date]]" type="text" name="previous_date" id="previous_date" required />
                                                                                 <span>Example: 2010-12-01</span>
@@ -3466,9 +3446,9 @@ if ($user->isLoggedIn()) {
                                                                 <div class="row">
 
                                                                     <div class="col-sm-6">
-                                                                        <div class="row-form clearfix">
+                                                                        <div class="row-form clearfix"> -->
                                                                             <!-- select -->
-                                                                            <div class="form-group">
+                                                                            <!-- <div class="form-group">
                                                                                 <label>Treatment Type 2</label>
                                                                                 <select name="treatment_type2" id="treatment_type2" style="width: 100%;" required>
                                                                                     <?php
@@ -3503,23 +3483,11 @@ if ($user->isLoggedIn()) {
                                                                     </div>
 
                                                                     <div class="col-sm-6">
-                                                                        <div class="row-form clearfix">
+                                                                        <div class="row-form clearfix"> -->
                                                                             <!-- select -->
-                                                                            <div class="form-group">
-                                                                                <label>Date Started Previous Treatment 2:</label>
-                                                                                <input value="<?= $client['previous_date2'] ?>" type="text" name="previous_date2" id="previous_date2" />
-                                                                                <span>Example: 2010-12-01</span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-
-                                                                <div class="row">
-                                                                    <div class="col-sm-6">
-                                                                        <div class="row-form clearfix">
+                                                                          /
                                                                             <!-- select -->
-                                                                            <div class="form-group">
+                                                                            <!-- <div class="form-group">
                                                                                 <label>Total number of Cycles for That Treatment:</label>
                                                                                 <input value="<?= $client['total_cycle'] ?>" type="text" name="total_cycle" id="total_cycle" required />
                                                                             </div>
@@ -3527,9 +3495,9 @@ if ($user->isLoggedIn()) {
                                                                     </div>
 
                                                                     <div class="col-sm-6">
-                                                                        <div class="row-form clearfix">
+                                                                        <div class="row-form clearfix"> -->
                                                                             <!-- select -->
-                                                                            <div class="form-group">
+                                                                            <!-- <div class="form-group">
                                                                                 <label>Current number of Cycle for Patient Treatment</label>
                                                                                 <input value="<?= $client['cycle_number'] ?>" type="text" name="cycle_number" id="cycle_number" required />
                                                                             </div>
@@ -3541,22 +3509,22 @@ if ($user->isLoggedIn()) {
                                                                 <div class="row">
 
                                                                     <div class="col-sm-6">
-                                                                        <div class="row-form clearfix">
+                                                                        <div class="row-form clearfix"> -->
                                                                             <!-- select -->
-                                                                            <div class="form-group">
+                                                                            <!-- <div class="form-group">
                                                                                 <label>Notes / Remark</label>
                                                                                 <textarea name="reasons" rows="4">
                                                                                 <?= $reasons['reasons'] ?>  
                                                                                 </textarea>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
+                                                                    </div> -->
 
                                                                     <div class="col-sm-6">
                                                                         <div class="row-form clearfix">
                                                                             <!-- select -->
                                                                             <div class="form-group">
-                                                                                <label>Date of Enrollment for This Study(Day Started Treatment):</label>
+                                                                                <label>Date of Enrollment:</label>
                                                                                 <input value="<?= $visit['visit_date'] ?>" class="validate[required,custom[date]]" type="text" name="visit_date" id="visit_date" required />
                                                                                 <span>Example: 2010-12-01</span>
                                                                             </div>
